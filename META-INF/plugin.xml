@@ -1,0 +1,47 @@
+<idea-plugin version="2">
+	<id>org.solovyev.idea.critic</id>
+	<name>Critic integration</name>
+	<version>1.0</version>
+	<vendor email="se.solovyev@gmail.com" url="http://se.solovyev.org">se.solovyev</vendor>
+
+	<description><![CDATA[Critic source code review tool support]]></description>
+
+	<change-notes><![CDATA[]]></change-notes>
+
+	<!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+	<idea-version since-build="130.323" />
+
+	<!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+		   on how to target different products -->
+	<depends>com.intellij.modules.lang</depends>
+	<depends>com.intellij.modules.platform</depends>
+	<depends>Git4Idea</depends>
+	<application-components>
+		<!-- Add your application components here -->
+	</application-components>
+
+	<project-components>
+		<!-- Add your project components here -->
+	</project-components>
+
+	<actions>
+		<action id="CriticView.Diff" class="com.intellij.openapi.vcs.changes.actions.ShowDiffAction"
+			icon="AllIcons.Actions.Diff" />
+
+		<group id="CriticViewPopupMenu">
+			<reference ref="CriticView.Diff" />
+		</group>
+	</actions>
+
+	<extensions defaultExtensionNs="com.intellij">
+		<applicationConfigurable instance="org.solovyev.idea.critic.configuration.CriticConfigurable"
+			id="org.solovyev.idea.critic.configuration.CriticConfigurable" displayName="Code Review" />
+		<applicationService serviceInterface="org.solovyev.idea.critic.configuration.CriticSettings"
+			serviceImplementation="org.solovyev.idea.critic.configuration.CriticSettings" />
+		<projectService serviceInterface="org.solovyev.idea.critic.connection.CriticManager"
+			serviceImplementation="org.solovyev.idea.critic.connection.CriticManager" />
+
+		<toolWindow id="Code Review" icon="/images/paw_orange.png" anchor="bottom" canCloseContents="true"
+			factoryClass="org.solovyev.idea.critic.ui.toolWindow.CriticToolWindowFactory" />
+	</extensions>
+</idea-plugin>
